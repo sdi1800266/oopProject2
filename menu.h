@@ -1,0 +1,2 @@
+char exitProgram;
+int proceed;

@@ -1,0 +1,11 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+
+using namespace std;
+
+enum SemesterType {
+    FALL1 = 1, FALL2 = 3, FALL3 = 5, FALL4 = 7,
+    SPRING1 = 2, SPRING2 = 4, SPRING3 = 6, SPRING4 = 8, EPIPTYXIW = 9
+};
