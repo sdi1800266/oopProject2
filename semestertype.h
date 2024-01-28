@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstring>
 #include <map>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 

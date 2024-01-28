@@ -5,14 +5,15 @@
 #include "course.h"
 #include "professor.h"
 
-class secretary {
-    private:
+class secretary {    
+
+    public:
+
         vector<Person*> persons;
         vector<professor*> professors;
         vector<student*> students;
         vector<Course*> courses;
 
-    public:
         secretary();
 
         void addPerson(const string& name, int age, const string& email,

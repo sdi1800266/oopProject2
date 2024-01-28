@@ -148,8 +148,10 @@ void secretary::assignProfessorToCourse(professor* professor, Course* course){
 
 void secretary::enrollStudentToCourse(student* student,Course* course) {
     if ((student->getSemester()) >= (course->getSemester())){
-        student->enrolledCourses[course->getCourseName()] = -1;
-        cout << "Student: " << student->getName() << " succesfully enrolled to " << course->getCourseName() << " course." << endl;
+        if ((student->getSemester() <= SPRING4) && ((course->getSemester() % 2) == (student->getSemester()) % 2) ) {
+            student->enrolledCourses[course->getCourseName()] = -1;
+            cout << "Student: " << student->getName() << " succesfully enrolled to " << course->getCourseName() << " course." << endl;
+        }
     }
     else {
         cout << "Student: " << student->getName() << " cannot enroll to Course: " << course->getCourseName() << " due to their semester." << endl;
@@ -173,12 +175,24 @@ void secretary::gradeStudents(student* student,Course* course, professor* profes
     }
 }
 
+//create a .txt file inputing the students that passed the course in the semester
 void secretary::passedCourse(Course* course) {
-    for (auto& student : students ) {
-        if ((student->enrolledCourses[course->getCourseName()]) >= 5.0) {
-            cout << "Student: " << student->getName() << " passed Course: " << course->getCourseName() << " with grade " << (student->enrolledCourses[course->getCourseName()]) << "." << endl;
+    ofstream outfile("Students that passed Course: " + course->getCourseName() + " in Semester: " + to_string(course->getSemester()) + ".txt");
+        
+        if (!outfile.is_open()){
+            cerr << "Unable to open the file." << endl;
+            return;
         }
-    }
+
+        for (auto& student : students ) {
+            if ((student->enrolledCourses[course->getCourseName()]) >= 5.0) {
+                cout << "Student: " << student->getName() << " passed Course: " << course->getCourseName() << " with grade " << (student->enrolledCourses[course->getCourseName()]) << "." << endl;
+                if (outfile.is_open()){
+                    outfile << "Student: " << student->getName() << " passed Course: " << course->getCourseName() << " with grade " << (student->enrolledCourses[course->getCourseName()]) << "." << endl;
+                }
+            }
+        }
+    outfile.close();
 }
 
 void secretary::professorStatistics(professor* professor) {
@@ -250,7 +264,7 @@ void secretary::studentStatisticsGeneral(student* student) {
 
 void secretary::printStudentsCompleted(student* student) {
     for (auto& student : students) {
-        if ((student->ectsCount >= 240) && (student->mandatoryCourses == 18)){
+        if ((student->ectsCount >= 50) && (student->mandatoryCourses == 5)){
             cout << "Student: " << student->getName() << " can get his degree!!!" << endl;
         }
     }

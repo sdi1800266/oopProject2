@@ -1,2 +1,0 @@
-char exitProgram;
-int proceed;
